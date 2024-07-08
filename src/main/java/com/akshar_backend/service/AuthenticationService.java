@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -24,7 +25,6 @@ public class AuthenticationService {
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-
     public String registerRequest(RegisterRequest request) {
         // Generate OTP
         String otp = otpService.generateOtp(6); // Change the length as needed
@@ -74,7 +74,7 @@ public class AuthenticationService {
         }
         //if otp is not valid
         return AuthenticationResponse.builder()
-                .token("Invalid Otp")
+                .token("Invalid Otp or otp expired")
                 .build();
     }
 //    public AuthenticationResponse authenticate(AuthenticationRequest request){
@@ -115,7 +115,7 @@ public class AuthenticationService {
                         request.getEmail(),
                         request.getPassword()));
 
-        System.out.println("after authenticcation");
+        System.out.println("after authentication");
         return AuthenticationResponse.builder()
                 .token(jwtService.generateToken(user))
                 .build();
