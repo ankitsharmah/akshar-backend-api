@@ -94,6 +94,16 @@ private final PasswordEncoder passwordEncoder;
 
     }
 
+    public String addToTheWishList(long userId,long bookId){
+        User user = userRepository.findById(userId).get();
+        Book book = bookRepository.findById(bookId).get();
+
+        user.getWishList().add(book);
+        userRepository.save(user);
+
+        return "book added to Wishlist successfully";
+    }
+
 //    public BookDto getBookByCat(String cat){
 //        return new BookMapper().toDto(bookRepository.findByBookCategory(cat));
 //    }
