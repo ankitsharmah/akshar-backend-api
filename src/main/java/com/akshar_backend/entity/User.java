@@ -38,6 +38,8 @@ public class User implements UserDetails {
     private List<Book> addToCart = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Book> purchasedBooks = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Book> WishList = new ArrayList<>();
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
