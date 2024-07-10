@@ -26,6 +26,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     public String registerRequest(RegisterRequest request) {
+
         // Generate OTP
         String otp = otpService.generateOtp(6); // Change the length as needed
 
